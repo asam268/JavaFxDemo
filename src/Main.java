@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application implements EventHandler<ActionEvent> {
 
     Button button;
 
@@ -20,6 +20,7 @@ public class Main extends Application {
 
         button = new Button();
         button.setText("Click me");
+        button.setOnAction(this); // you can make a different class for handling events
 
         // simple layout
         StackPane layout = new StackPane();
@@ -28,5 +29,12 @@ public class Main extends Application {
         Scene scene = new Scene(layout, 300, 250);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void handle(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == button) {
+            System.out.println("Print some text");
+        }
     }
 }
