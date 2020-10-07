@@ -23,6 +23,10 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         window = stage;
         window.setTitle("Asa's Console");
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            closeProgram();
+        });
 
         HBox topMenu = new HBox();
         Button buttonFile = new Button("File");
@@ -36,9 +40,19 @@ public class Main extends Application {
         Button buttonF = new Button("F");
         leftMenu.getChildren().addAll(buttonD, buttonE, buttonF);
 
+        HBox bottomMenu = new HBox();
+        Button buttonAlert = new Button("Alert");
+        buttonAlert.setOnAction(e -> AlertBox.display("Alert", "This is an alert"));
+        Button buttonConfirm = new Button("Confirmation");
+        buttonConfirm.setOnAction(e -> ConfirmBox.display("Confirmation", "This is not really doing anything... Why did you press this?"));
+        Button buttonClose = new Button("Close");
+        buttonClose.setOnAction(e -> closeProgram());
+        bottomMenu.getChildren().addAll(buttonAlert, buttonConfirm, buttonClose);
+
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(topMenu);
         borderPane.setLeft(leftMenu);
+        borderPane.setBottom(bottomMenu);
 
         Scene scene = new Scene(borderPane, 300, 250);
         window.setScene(scene);
