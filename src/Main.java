@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -46,8 +47,9 @@ public class Main extends Application {
         GridPane.setConstraints(lblPassword, 0, 1);
 
         // Password input
-        TextField txtPassword = new TextField();
-        txtPassword.setPromptText("Prompt Text");
+//        TextField txtPassword = new TextField();
+        PasswordField txtPassword = new PasswordField();
+//        txtPassword.setPromptText("Prompt Text");
         GridPane.setConstraints(txtPassword, 1 ,1);
 
         // Login button
@@ -66,6 +68,7 @@ public class Main extends Application {
         Scene scene = new Scene(grid, 300, 200);
         window.setScene(scene);
         window.show();
+        Login.display();
     }
 
     private void closeProgram() {
