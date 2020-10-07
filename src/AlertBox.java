@@ -15,7 +15,7 @@ public class AlertBox {
         window.setMinWidth(250);
 
         Label label = new Label();
-        label.setText("Alerting you with a message");
+        label.setText(message);
         Button closeButton = new Button("Close the window");
         closeButton.setOnAction(e -> window.close());
 

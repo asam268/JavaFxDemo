@@ -13,8 +13,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    // TODO: rename variables
     Stage window;
     Button btnAlert, btnConfirm, btnClose;
+    Button button;
 
     public static void main(String[] args) {
         launch(args); // inside the application class - set up program as javafx application
@@ -29,52 +31,41 @@ public class Main extends Application {
             closeProgram();
         });
 
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10)); // works more like a margin
-        grid.setVgap(8);
-        grid.setHgap(10);
+        TextField txt_name = new TextField();
+        button = new Button("Click Me");
+        button.setOnAction(e -> isInt(txt_name));
 
-        // Name Label
-        Label lblName = new Label("Username:");
-        GridPane.setConstraints(lblName, 0, 0);
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20, 20, 20, 20));
+        layout.getChildren().addAll(txt_name, button);
 
-        // Name input
-        TextField txtName = new TextField("Bucky");
-        GridPane.setConstraints(txtName, 1, 0);
-
-        // Password Label
-        Label lblPassword = new Label("Password:");
-        GridPane.setConstraints(lblPassword, 0, 1);
-
-        // Password input
-//        TextField txtPassword = new TextField();
-        PasswordField txtPassword = new PasswordField();
-//        txtPassword.setPromptText("Prompt Text");
-        GridPane.setConstraints(txtPassword, 1 ,1);
-
-        // Login button
-        Button btnLogin = new Button("Log In");
-        GridPane.setConstraints(btnLogin, 1, 2);
-
-        grid.getChildren().addAll(lblName, txtName, lblPassword, txtPassword, btnLogin);
-
-        btnAlert = new Button("Alert");
-        btnAlert.setOnAction(e -> AlertBox.display("Alert", "This is an alert"));
-        btnConfirm = new Button("Confirmation");
-        btnConfirm.setOnAction(e -> ConfirmBox.display("Confirmation", "This is not really doing anything... Why did you press this?"));
-        btnClose = new Button("Close");
-        btnClose.setOnAction(e -> closeProgram());
-
-        Scene scene = new Scene(grid, 300, 200);
+        Scene scene = new Scene(layout, 300, 250);
         window.setScene(scene);
         window.show();
-        Login.display();
     }
 
     private void closeProgram() {
         boolean answer = ConfirmBox.display("Confirmation", "Are you sure you want to exit?");
         if (answer) {
             window.close();
+        }
+    }
+
+    private void setButtonEvents() {
+        btnAlert = new Button("Alert");
+        btnAlert.setOnAction(e -> AlertBox.display("Alert", "This is an alert"));
+        btnConfirm = new Button("Confirmation");
+        btnConfirm.setOnAction(e -> ConfirmBox.display("Confirmation", "This is not really doing anything... Why did you press this?"));
+        btnClose = new Button("Close");
+        btnClose.setOnAction(e -> closeProgram());
+    }
+
+    private void isInt(TextField input) {
+        try {
+            int age = Integer.parseInt(input.getText());
+            AlertBox.display("Age", "Age is: " + age);
+        } catch (NumberFormatException e) {
+            AlertBox.display("Input Error", "You must input an integer");
         }
     }
 }
