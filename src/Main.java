@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +12,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     Stage window;
-    Button button;
+    Button buttonAlert, buttonConfirm;
     Scene scene1, scene2;
 
     public static void main(String[] args) {
@@ -23,11 +24,18 @@ public class Main extends Application {
         window = stage;
         window.setTitle("Title of the Window");
 
-        button = new Button("Click Me");
-        button.setOnAction(e -> AlertBox.display("Alert Title", "This is the message of the alert box."));
+        buttonAlert = new Button("Click Me");
+        buttonAlert.setOnAction(e -> AlertBox.display("Alert Title", "This is the message of the alert box."));
 
-        StackPane layout = new StackPane();
-        layout.getChildren().add(button);
+        buttonConfirm = new Button("Confirmation");
+        buttonConfirm.setOnAction(e -> {
+            boolean result = ConfirmBox.display("Confirmation", "Are you sure?");
+            System.out.println(result);
+        });
+
+        VBox layout = new VBox(20);
+        layout.getChildren().addAll(buttonAlert, buttonConfirm);
+        layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 300, 250);
         window.setScene(scene);
         window.show();
