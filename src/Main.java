@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -12,8 +14,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     Stage window;
-    Button buttonAlert, buttonConfirm, buttonClose;
-    Scene scene1, scene2;
 
     public static void main(String[] args) {
         launch(args); // inside the application class - set up program as javafx application
@@ -22,35 +22,30 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         window = stage;
-        window.setTitle("Title of the Window");
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            closeProgram();
-        });
+        window.setTitle("Asa's Console");
 
-        buttonAlert = new Button("Alert");
-        buttonAlert.setOnAction(e -> AlertBox.display("Alert Title", "This is the message of the alert box."));
+        HBox topMenu = new HBox();
+        Button buttonFile = new Button("File");
+        Button buttonEdit = new Button("Edit");
+        Button buttonView = new Button("View");
+        topMenu.getChildren().addAll(buttonFile, buttonEdit, buttonView);
 
-        buttonConfirm = new Button("Confirmation");
-        buttonConfirm.setOnAction(e -> {
-            boolean result = ConfirmBox.display("Confirmation", "Are you sure?");
-            System.out.println(result);
-        });
+        VBox leftMenu = new VBox();
+        Button buttonD = new Button("D");
+        Button buttonE = new Button("E");
+        Button buttonF = new Button("F");
+        leftMenu.getChildren().addAll(buttonD, buttonE, buttonF);
 
-        buttonClose = new Button("Close");
-        buttonClose.setOnAction(e -> closeProgram());
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(topMenu);
+        borderPane.setLeft(leftMenu);
 
-        VBox layout = new VBox(20);
-        layout.getChildren().addAll(buttonAlert, buttonConfirm, buttonClose);
-        layout.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(layout, 300, 250);
+        Scene scene = new Scene(borderPane, 300, 250);
         window.setScene(scene);
         window.show();
     }
 
     private void closeProgram() {
-//        System.out.println("File is saved!");
-//        window.close();
         boolean answer = ConfirmBox.display("Confirmation", "Are you sure you want to exit?");
         if (answer) {
             window.close();
